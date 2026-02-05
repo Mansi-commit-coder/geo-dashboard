@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useGeoData } from '../../useGeoData'
+import { useGeoData } from '../useGeoData'
 import DataTable from '../DataTable'
 import MapView from '../MapView'
 
@@ -200,5 +200,6 @@ export default function Dashboard() {
     </div>
   )
 }
+
 
 
