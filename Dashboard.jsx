@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import { useGeoData } from '../../hooks/useGeoData'
-import DataTable from '../DataTable/DataTable'
-import MapView from '../MapView/MapView'
+import { useGeoData } from '../../useGeoData'
+import DataTable from '../DataTable'
+import MapView from '../MapView'
 
 export default function Dashboard() {
   const {
@@ -200,4 +200,5 @@ export default function Dashboard() {
     </div>
   )
 }
+
 
