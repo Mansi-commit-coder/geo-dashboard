@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import { useGeoData } from '../useGeoData'
-import DataTable from '../DataTable'
-import MapView from '../MapView'
+import { useGeoData } from '../../hooks/useGeoData'
+import DataTable from '../DataTable/DataTable'
+import MapView from '../MapView/MapView'
 
 export default function Dashboard() {
   const {
@@ -27,13 +27,12 @@ export default function Dashboard() {
       setPage(0)
       setSelectedId(null)
     }, 300)
-
     return () => clearTimeout(timer)
   }, [searchInput, setSearch, setPage])
 
   return (
     <div style={{ position: 'relative', minHeight: '100vh' }}>
-      {/* 🌌 FULL WEBSITE BACKGROUND */}
+      {/* 🌌 Galaxy background */}
       <video
         autoPlay
         loop
@@ -48,94 +47,95 @@ export default function Dashboard() {
           zIndex: -10,
         }}
       >
-        <source src="./galaxy.mp4" type="video/mp4" />
+        <source src="/videos/galaxy.mp4" type="video/mp4" />
       </video>
 
-      {/* ================= HEADER ================= */}
+      {/* ================= TOP VIDEO SECTION ================= */}
       <div
         style={{
-          textAlign: 'center',
-          paddingTop: 32,
-          color: '#fff',
-          position: 'relative',
-          zIndex: 2,
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: 32,
+          marginBottom: -50,
+          padding: '0 12px',
         }}
       >
-        <h2
-          style={{
-            fontSize: 'clamp(26px, 5vw, 38px)',
-            fontWeight: 800,
-            marginBottom: 18,
-          }}
-        >
-          Geo Data Dashboard
-        </h2>
-
-        {/* SEARCH + FILTER */}
         <div
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: 8,
-            flexWrap: 'wrap',
-            marginBottom: 20,
+            position: 'relative',
+            width: 'clamp(95%, 70%, 40%)',
+            height: 260,
           }}
         >
-          <input
-            placeholder="Search project"
-            value={searchInput}
-            onChange={e => setSearchInput(e.target.value)}
-            style={{ padding: 6, minWidth: 160 }}
-          />
-
-          <select
-            value={sortKey}
-            onChange={e => setSortKey(e.target.value)}
-            style={{ padding: 6 }}
-          >
-            <option value="projectName">Project Name</option>
-            <option value="status">Status</option>
-          </select>
-
-          <button
-            onClick={() =>
-              setSortOrder(o => (o === 'asc' ? 'desc' : 'asc'))
-            }
-            style={{ padding: '6px 12px' }}
-          >
-            {sortOrder === 'asc' ? '⬆ Asc' : '⬇ Desc'}
-          </button>
-        </div>
-
-        {/* 🎥 MIDDLE VIDEO (40% WIDTH, 200% HEIGHT) */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            marginBottom: 40,
-          }}
-        >
-          <div
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
             style={{
-              width: '40%',
-              height: 260,
-              overflow: 'hidden',
-              position: 'relative',
+              position: 'absolute',
+              top: '-100%',
+              left: '-5%',
+              width: '110%',
+              height: '300%',
+              objectFit: 'cover',
+              zIndex: -1,
             }}
           >
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
+            <source src="/videos/m.mp4" type="video/mp4" />
+          </video>
+
+          <div
+            style={{
+              textAlign: 'center',
+              color: '#fff',
+              padding: 16,
+            }}
+          >
+            <h2
               style={{
-                width: '100%',
-                height: '200%',
-                objectFit: 'cover',
+                fontSize: 'clamp(26px, 5vw, 38px)',
+                fontWeight: 800,
+                marginBottom: 18,
+                letterSpacing: '0.5px',
               }}
             >
-              <source src="./m.mp4" type="video/mp4" />
-            </video>
+              Geo Data Dashboard
+            </h2>
+
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                gap: 8,
+                flexWrap: 'wrap',
+              }}
+            >
+              <input
+                placeholder="Search project"
+                value={searchInput}
+                onChange={e => setSearchInput(e.target.value)}
+                style={{ padding: 6, minWidth: 160 }}
+              />
+
+              <select
+                value={sortKey}
+                onChange={e => setSortKey(e.target.value)}
+                style={{ padding: 6 }}
+              >
+                <option value="projectName">Project Name</option>
+                <option value="status">Status</option>
+              </select>
+
+              <button
+                onClick={() =>
+                  setSortOrder(o => (o === 'asc' ? 'desc' : 'asc'))
+                }
+                style={{ padding: '6px 12px' }}
+              >
+                {sortOrder === 'asc' ? '⬆ Asc' : '⬇ Desc'}
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -157,14 +157,14 @@ export default function Dashboard() {
         />
       </div>
 
-      {/* ================= PAGINATION ================= */}
+      {/* ================= PAGINATION (ABOVE MAP) ================= */}
       <div
         style={{
           maxWidth: 1200,
           margin: '12px auto 24px',
           padding: 16,
           textAlign: 'center',
-          color: '#fff',
+          position: 'relative',
           zIndex: 2,
         }}
       >
@@ -176,7 +176,7 @@ export default function Dashboard() {
           Prev
         </button>
 
-        <span>
+        <span style={{ color: '#e5e7eb' }}>
           Page {page + 1} / {Math.ceil(total / PAGE_SIZE)}
         </span>
 
@@ -189,7 +189,7 @@ export default function Dashboard() {
         </button>
       </div>
 
-      {/* ================= MAP ================= */}
+      {/* ================= MAP (FULL WIDTH) ================= */}
       <div style={{ width: '100%', position: 'relative', zIndex: 2 }}>
         <MapView
           data={data}
