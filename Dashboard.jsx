@@ -47,7 +47,7 @@ export default function Dashboard() {
           zIndex: -10,
         }}
       >
-        <source src="/videos/galaxy.mp4" type="video/mp4" />
+        <source src="/galaxy.mp4" type="video/mp4" />
       </video>
 
       {/* ================= TOP VIDEO SECTION ================= */}
@@ -82,7 +82,7 @@ export default function Dashboard() {
               zIndex: -1,
             }}
           >
-            <source src="/videos/m.mp4" type="video/mp4" />
+            <source src="/m.mp4" type="video/mp4" />
           </video>
 
           <div
@@ -200,3 +200,4 @@ export default function Dashboard() {
     </div>
   )
 }
+
